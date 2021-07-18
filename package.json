@@ -1,0 +1,24 @@
+{
+  "name": "electron-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hun756/ElectronJS-Todo-List.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hun756/ElectronJS-Todo-List/issues"
+  },
+  "homepage": "https://github.com/hun756/ElectronJS-Todo-List#readme",
+  "dependencies": {
+    "bootstrap": "^5.0.2",
+    "electron": "^13.1.7"
+  }
+}
