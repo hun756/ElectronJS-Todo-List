@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, Accelerator } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const url = require('url');
 const path = require('path');
 
@@ -7,8 +7,14 @@ let mainWindow;
 
 
 app.on('ready', () => {
-    
-    mainWindow = new BrowserWindow({});
+
+    mainWindow = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true
+        }
+    });
 
     mainWindow.loadURL(
         url.format({
@@ -21,12 +27,17 @@ app.on('ready', () => {
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(mainMenu);
 
+
+    ipcMain.on('key:txt', (err, data) => {
+        console.log(data);
+    });
+
 });
 
 
 const mainMenuTemplate = [
     {
-        label: 'file',
+        label: 'File',
         submenu: [
             {
                 label: 'Add new Todo',
@@ -58,5 +69,12 @@ if (process.env.NODE_ENV !== 'production') {
                 role: "reload"
             }
         ]
+    });
+}
+
+if (process.platform == "darwin") {
+    mainMenuTemplate.unshift({
+        label: app.getName(),
+        role: "TODO"
     });
 }

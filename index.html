@@ -8,19 +8,27 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <title>First Electron Js App</title>
 </head>
+
 <body>
     <div class="container">
-        <div class="alert alert-primary" role="alert">
-            This is my fist electron js app.
+        <div class="form-group">
+            <label for="exampleText">Your text: </label>
+            <input type="text" class="form-control" id="exampleText" placeholder="Enter something">
+            <small id="textHelp" class="form-text text-muted">Write here something you want to send to the
+                backend</small>
         </div>
         <button id="myBtn" class="btn btn-primary">Send</button>
     </div>
 
     <script>
+        const { ipcRenderer } = require('electron');
+
         let btn = document.getElementById('myBtn');
+        let txt = document.getElementById('exampleText');
 
         btn.addEventListener('click', () => {
-            alert('Button was clicked.')
+
+            ipcRenderer.send('key:txt', txt.value);
         });
     </script>
 </body>
