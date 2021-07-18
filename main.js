@@ -32,6 +32,15 @@ app.on('ready', () => {
         console.log(data);
     });
 
+
+    ipcMain.on('key:newWindow', () => {
+        console.log('Handled new window reques...!');
+        createwindow();
+    });
+
+    mainWindow.on('close', () => {
+        app.quit();
+    });
 });
 
 
@@ -71,6 +80,32 @@ if (process.env.NODE_ENV !== 'production') {
         ]
     });
 }
+
+createwindow = () => {
+    newWindow = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true
+        },
+        width: 400,
+        height: 200,
+        resizable: false,
+    });
+
+    newWindow.loadURL(
+        url.format({
+            pathname: path.join(__dirname, 'modal.html'),
+            protocol: "file:",
+            slashes: true
+        })
+    );
+
+    newWindow.on('close', () => {
+        newWindow = null;
+    });
+}
+
 
 if (process.platform == "darwin") {
     mainMenuTemplate.unshift({

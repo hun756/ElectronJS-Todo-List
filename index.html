@@ -18,6 +18,7 @@
                 backend</small>
         </div>
         <button id="myBtn" class="btn btn-primary">Send</button>
+        <button id="newWin" class="btn btn-danger">Open New Window</button>
     </div>
 
     <script>
@@ -25,11 +26,17 @@
 
         let btn = document.getElementById('myBtn');
         let txt = document.getElementById('exampleText');
+        let winBtn = document.getElementById('newWin');
 
         btn.addEventListener('click', () => {
-
             ipcRenderer.send('key:txt', txt.value);
         });
+
+
+        winBtn.addEventListener('click', () => {
+            ipcRenderer.send("key:newWindow");
+        });
+
     </script>
 </body>
 
